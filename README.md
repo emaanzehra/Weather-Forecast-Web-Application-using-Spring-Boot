@@ -89,8 +89,8 @@ Alternatively, you may use environment variables if preferred.
 ### Run Locally
 
 ```bash
-git clone <repository-url>
-cd <project-folder>
+git clone git@github.com:emaanzehra/Weather-Forecast-Web-Application-using-Spring-Boot.git
+cd Weather-Forecast-Web-Application-using-Spring-Boot
 mvn clean install
 mvn spring-boot:run
 ```
