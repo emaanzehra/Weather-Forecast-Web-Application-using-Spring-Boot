@@ -1,4 +1,3 @@
-````md
 # Weather Forecast Web Application
 
 ## Project Description
