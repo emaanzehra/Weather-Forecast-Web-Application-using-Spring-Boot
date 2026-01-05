@@ -1,141 +1,121 @@
-# Weather-Forecast-Web-Application-using-Spring-Boot
-In this project, We implemented the complete backend flow—from handling user requests to fetching live weather data through a REST API and processing JSON responses for clean display of key weather details (like temperature and conditions).
-````md
 # Weather Forecast Web Application (Spring Boot)
 
-A simple, learning-focused **Weather Forecast Web Application** built with **Spring Boot** that fetches and displays **real-time weather information** (e.g., temperature and weather conditions) by integrating an external weather API.
+A simple **Weather Forecast Web Application** built with **Spring Boot** that fetches and displays real-time weather information such as temperature and weather conditions using an external weather API.
 
-> Academic OOP Project (Java / Spring Boot). :contentReference[oaicite:0]{index=0}
+This project was developed as an **Object-Oriented Programming (OOP) academic project** with a focus on clean architecture, API integration, and practical use of Spring Boot.
 
 ---
 
 ## Table of Contents
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [Tech Stack](#tech-stack)
-- [Architecture (High-Level)](#architecture-high-level)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Configuration](#configuration)
-  - [Run Locally](#run-locally)
-- [Usage](#usage)
-- [Notes](#notes)
-- [References](#references)
-- [Contributors](#contributors)
+
+* Overview
+* Key Features
+* Tech Stack
+* Architecture
+* Getting Started
+
+  * Prerequisites
+  * Configuration
+  * Run Locally
+* Usage
+* Notes
+* Contributors
 
 ---
 
 ## Overview
 
-Weather apps are used daily to plan activities based on current conditions. This project focuses on building a **clean, lightweight, and user-friendly** weather viewer using Spring Boot, emphasizing:
-- REST API integration
-- Modular Spring Boot structure
-- Maven-based project organization :contentReference[oaicite:1]{index=1}
+Weather forecasting applications are widely used to help people plan daily activities. This project demonstrates how a Java-based Spring Boot application can integrate with a third-party weather API to retrieve and present live weather data in a simple and user-friendly manner.
+
+The main objective of the project is to apply OOP concepts while gaining hands-on experience with Spring Boot and RESTful APIs.
 
 ---
 
 ## Key Features
-- Fetches **live weather data** from an external weather service API :contentReference[oaicite:2]{index=2}
-- Displays key details like:
-  - Temperature
-  - Weather conditions (e.g., Clear, Clouds, Rain) :contentReference[oaicite:3]{index=3}
-- Efficient request handling through Spring Boot controllers :contentReference[oaicite:4]{index=4}
-- Simple, minimal interface (learning-first design goal) :contentReference[oaicite:5]{index=5}
+
+* Retrieves real-time weather data from an external API
+* Displays essential weather details such as:
+
+  * Temperature
+  * Current weather conditions (e.g., Clear, Clouds, Rain)
+* Uses Spring Boot controllers for efficient request handling
+* Lightweight and easy-to-understand project structure
 
 ---
 
 ## Tech Stack
-- **Java**
-- **Spring Boot**
-- **Maven**
-- **REST API Integration**
-- External Weather API (commonly: **OpenWeather API**) :contentReference[oaicite:6]{index=6}
+
+* Java
+* Spring Boot
+* Maven
+* RESTful API integration
+* External Weather API (e.g., OpenWeather API)
 
 ---
 
-## Architecture (High-Level)
+## Architecture
 
-Typical flow:
-1. User requests weather for a location (city).
-2. Spring Boot **Controller** receives the request.
-3. App calls an **external weather API** using REST.
-4. Response is processed/parsed.
-5. Clean weather data is returned to the UI/view. :contentReference[oaicite:7]{index=7}
+High-level workflow of the application:
+
+1. User requests weather information for a city.
+2. Spring Boot controller handles the request.
+3. The application sends a request to the external weather API.
+4. API response is processed and parsed.
+5. Weather data is displayed to the user.
 
 ---
 
 ## Getting Started
 
 ### Prerequisites
-- Java 8+ (or Java 11+ recommended)
-- Maven 3+
-- A weather API key (e.g., OpenWeather)
+
+* Java 8 or higher
+* Maven 3 or higher
+* A valid weather API key (e.g., OpenWeather)
 
 ### Configuration
 
-Create a configuration entry for your API key.
+Add your API key and base URL in the configuration file.
 
-**Option A: `application.properties`**
+Example (`application.properties`):
+
 ```properties
 weather.api.key=YOUR_API_KEY
 weather.api.baseUrl=https://api.openweathermap.org/data/2.5/weather
-````
-
-**Option B: Environment Variable**
-
-```bash
-export WEATHER_API_KEY="YOUR_API_KEY"
 ```
 
-Then read it in Spring Boot (implementation-dependent).
-
-> If your project already contains specific property names, use those instead.
+Alternatively, you may use environment variables if preferred.
 
 ### Run Locally
 
 ```bash
-# 1) Clone
-git clone <your-repo-url>
-cd <your-repo-folder>
-
-# 2) Build
+git clone <repository-url>
+cd <project-folder>
 mvn clean install
-
-# 3) Run
 mvn spring-boot:run
 ```
 
-Open in your browser (commonly):
+The application will typically run at:
 
-* `http://localhost:8080`
+```
+http://localhost:8080
+```
 
 ---
 
 ## Usage
 
-* Enter a city name (or location input as supported by your UI).
+* Enter the name of a city in the application interface.
 * Submit the request.
-* View real-time weather details returned from the external API. 
+* View the current weather information returned by the API.
 
 ---
 
 ## Notes
 
-* This project is designed to be **simple and readable**, avoiding clutter and unnecessary complexity. 
-* If you hit API errors:
-
-  * Confirm your API key is valid
-  * Confirm request limits on your API plan
-  * Check city spelling and says supported by the provider
-
----
-
-## References
-
-* Spring Boot Official Documentation 
-* OpenWeather API Documentation 
-* Java Documentation 
-* Maven Documentation 
+* This project is intended for learning purposes and demonstrates basic Spring Boot and OOP concepts.
+* Ensure your API key is valid and that you have not exceeded API request limits.
+* Internet access is required for fetching live weather data.
 
 ---
 
@@ -143,7 +123,4 @@ Open in your browser (commonly):
 
 * **Ahmed Ali** — 25SP-041-AI
 * **Emaan Zehra Butt** — 25SP-024-AI
-* **Mariam Syeda** — 25SP-025-AI 
-
-```
-```
+* **Mariam Syeda** — 25SP-025-AI
