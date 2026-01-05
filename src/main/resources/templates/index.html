@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherWise | Intelligent Weather Forecasting</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+    <div class="container">
+        <div class="glass-card main-card" data-aos="fade-up">
+            <div class="card-header">
+                <div class="app-brand">
+                    <i class="fas fa-cloud-sun"></i>
+                    <h1>WeatherWise</h1>
+                </div>
+                <div class="current-time" id="current-time"></div>
+            </div>
+
+            <p class="subtitle">Intelligent Weather Forecasting with Real-time Air Quality Analysis</p>
+            
+            <div class="search-section">
+                <form th:action="@{/weather}" method="post" id="weather-form">
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" 
+                               name="city" 
+                               placeholder="Enter city name or location..." 
+                               required
+                               autocomplete="off"
+                               id="city-input">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                            <span>Get Forecast</span>
+                        </button>
+                    </div>
+                    <div class="location-hint">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Try: New York, Tokyo, London, Paris.</span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>200,000+</h3>
+                    <p>Cities Worldwide</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>99.9%</h3>
+                    <p>Uptime</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>AQI</h3>
+                    <p>Air Quality Index</p>
+                </div>
+            </div>
+
+            <div class="features">
+                <h3><i class="fas fa-star"></i> Premium Features</h3>
+                <div class="features-grid">
+                    <div class="feature">
+                        <i class="fas fa-temperature-high"></i>
+                        <span>Real-time Temperature</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-wind"></i>
+                        <span>Wind Analysis</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-tint"></i>
+                        <span>Humidity Levels</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-smog"></i>
+                        <span>Air Quality</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>Powered by Advanced Meteorological Algorithms • Data updates every 15 minutes</p>
+            <p class="copyright">© 2024 WeatherWise • <a href="#" class="privacy-link">Privacy Policy</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            document.getElementById('current-time').textContent = timeString;
+        }
+        
+        updateTime();
+        setInterval(updateTime, 60000);
+        
+        // Add input animation
+        document.getElementById('city-input').addEventListener('focus', function() {
+            this.parentElement.classList.add('focused');
+        });
+        
+        document.getElementById('city-input').addEventListener('blur', function() {
+            this.parentElement.classList.remove('focused');
+        });
+    </script>
+</body>
+</html>

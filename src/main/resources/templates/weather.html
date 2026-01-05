@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Weather in ' + ${city} + ' | WeatherWise'">Weather Results</title>
+    <link rel="stylesheet" href="/css/style.css?v=4004">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-animation">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+    </div>
+
+    <div class="container">
+        <div class="glass-card weather-card" data-aos="fade-up">
+            <div class="weather-header">
+                <div class="header-left">
+                    <a href="/" class="back-home">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to Search</span>
+                    </a>
+                    <div class="location-info">
+                        <h1 th:text="${city}">City Name</h1>
+                        <div class="location-details">
+                            <span class="weather-desc"
+                                th:text="${weather != null and weather.description != null ? weather.description : '--'}">--</span>
+
+                            <span class="update-time" id="update-time"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="last-updated">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Updated just now</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-weather-display">
+                <div class="temperature-section">
+                    <div class="current-temp">
+                        <div class="temp-value"
+                            th:text="${weather.temperature != null ? weather.temperature + '°' : '--°'}">--°</div>
+                        <div class="temp-unit">
+                            <span class="active">C</span>
+                            <span>/</span>
+                            <span>F</span>
+                        </div>
+                    </div>
+                    <div class="feels-like">
+                        <i class="fas fa-temperature-high"></i>
+                        <span>Feels like
+                            <strong
+                                th:text="${weather.feelsLike != null ? weather.feelsLike + '°C' : '--°C'}">--°C</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="weather-icon-large">
+                    <div class="icon-container" id="weather-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="icon-label"
+                        th:text="${weather != null and weather.description != null ? weather.description : '--'}">--
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="detailed-metrics">
+            <div class="metrics-grid">
+
+                <!-- Temperature Card -->
+                <div class="metric-card" data-aos="fade-right">
+                    <div class="metric-header">
+                        <i class="fas fa-temperature-three-quarters"></i>
+                        <h4>Temperature</h4>
+                    </div>
+                    <div class="metric-value"
+                        th:text="${weather.temperature != null ? weather.temperature + '°C' : '--°C'}">--°C</div>
+                    <div class="metric-range">
+                        <span>Min: --°</span>
+                        <span>Max: --°</span>
+                    </div>
+                </div>
+
+                <!-- Humidity Card -->
+                <div class="metric-card" data-aos="fade-right" data-aos-delay="100">
+                    <div class="metric-header">
+                        <i class="fas fa-tint"></i>
+                        <h4>Humidity</h4>
+                    </div>
+                    <div class="metric-value" th:text="${weather.humidity != null ? weather.humidity + '%' : '--%'}">--%
+                    </div>
+                    <div class="humidity-bar">
+                        <div class="bar-fill"
+                            th:style="${weather.humidity != null ? 'width:' + weather.humidity + '%' : 'width:0%'}">
+                        </div>
+                    </div>
+                    <div class="metric-status">
+                        <span th:if="${weather.humidity != null and weather.humidity > 70}">High Humidity</span>
+                        <span
+                            th:if="${weather.humidity != null and weather.humidity <= 70 and weather.humidity > 40}">Comfortable</span>
+                        <span th:if="${weather.humidity != null and weather.humidity <= 40}">Dry Air</span>
+                    </div>
+                </div>
+
+                <!-- AQI Card -->
+                <div class="metric-card aqi-card" data-aos="fade-right" data-aos-delay="200">
+                    <div class="metric-header">
+                        <i class="fas fa-wind"></i>
+                        <h4>Air Quality Index</h4>
+                    </div>
+                    <div class="metric-value" th:text="${weather.aqi != null ? weather.aqi : '--'}">--</div>
+                    <div class="aqi-indicator">
+                        <div class="aqi-scale">
+                            <div class="scale-point"
+                                th:classappend="${weather.aqi != null and weather.aqi <= 50 ? 'active' : ''}">Good
+                            </div>
+                            <div class="scale-point"
+                                th:classappend="${weather.aqi != null and weather.aqi > 50 and weather.aqi <= 100 ? 'active' : ''}">
+                                Moderate</div>
+                            <div class="scale-point"
+                                th:classappend="${weather.aqi != null and weather.aqi > 100 and weather.aqi <= 150 ? 'active' : ''}">
+                                Unhealthy</div>
+                            <div class="scale-point"
+                                th:classappend="${weather.aqi != null and weather.aqi > 150 ? 'active' : ''}">
+                                Hazardous</div>
+                        </div>
+                    </div>
+                    <div class="aqi-recommendation" th:if="${weather.aqi != null and weather.aqi > 100}">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Consider limiting outdoor activities</span>
+                    </div>
+                </div>
+
+                <!-- Pressure Card -->
+                <div class="metric-card" data-aos="fade-right" data-aos-delay="300">
+                    <div class="metric-header">
+                        <i class="fas fa-compass"></i>
+                        <h4>Pressure</h4>
+                    </div>
+                    <div class="metric-value"
+                        th:text="${weather.pressure != null ? weather.pressure + ' hPa' : '1013 hPa'}">1013 hPa
+                    </div>
+                    <div class="pressure-trend">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Stable</span>
+                    </div>
+                </div>
+
+                <!-- Visibility Card -->
+                <div class="metric-card" data-aos="fade-right" data-aos-delay="400">
+                    <div class="metric-header">
+                        <i class="fas fa-eye"></i>
+                        <h4>Visibility</h4>
+                    </div>
+                    <div class="metric-value"
+                        th:text="${weather.visibility != null ? weather.visibility + ' km' : '10 km'}">10 km</div>
+                    <div class="visibility-status">
+                        <span>Clear Visibility</span>
+                    </div>
+                </div>
+
+                <!-- UV Index Card -->
+                <div class="metric-card" data-aos="fade-right" data-aos-delay="500">
+                    <div class="metric-header">
+                        <i class="fas fa-sun"></i>
+                        <h4>UV Index</h4>
+                    </div>
+                    <div class="metric-value" th:text="${weather.uvIndex != null ? weather.uvIndex : '5.2'}">5.2
+                    </div>
+                    <div class="uv-level">
+                        <span class="uv-label">Moderate</span>
+                        <div class="uv-bar">
+                            <div class="uv-fill"
+                                th:style="${weather.uvIndex != null ? 'width:' + (weather.uvIndex*10) + '%' : 'width:52%'}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Precautions Card -->
+                <div class="metric-card" data-aos="fade-right" data-aos-delay="600">
+                    <div class="metric-header">
+                        <i class="fas fa-notes-medical"></i>
+                        <h4>Medical Precautions</h4>
+                    </div>
+                    <div class="metric-value precautions-text"
+                        th:text="${weather.medicalPrecautions != null ? weather.medicalPrecautions : 'No precautions available'}">
+                        No precautions available
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="hourly-forecast">
+            <h3><i class="fas fa-clock"></i> Next 24 Hours</h3>
+            <div class="hourly-scroll">
+                <div class="hour-item">
+                    <div class="hour">Now</div>
+                    <div class="hour-icon"><i class="fas fa-sun"></i></div>
+                    <div class="hour-temp">24°</div>
+                </div>
+                <!-- More hour items would be dynamically generated -->
+            </div>
+        </div>
+
+        <div class="weather-actions">
+            <button class="action-btn refresh-btn">
+                <i class="fas fa-sync-alt"></i>
+                Refresh Data
+            </button>
+            <button class="action-btn share-btn">
+                <i class="fas fa-share-alt"></i>
+                Share Report
+            </button>
+            <button class="action-btn save-btn">
+                <i class="fas fa-bookmark"></i>
+                Save Location
+            </button>
+        </div>
+
+        <div class="footer-note">
+            <p>Data provided by meteorological sources • Forecast accuracy: 95%</p>
+            <p class="disclaimer">This information is for planning purposes only. Always check official sources for
+                critical decisions.</p>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Update timestamp
+        function updateTimestamp() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+            const el = document.getElementById("update-time");
+            if (el) el.textContent = `Updated at ${timeString}`;
+        }
+
+        // Update weather icon based on conditions
+        function updateWeatherIcon() {
+            const desc = (document.querySelector(".weather-desc")?.textContent || "").trim().toLowerCase();
+            if (!desc || desc === "--") return;
+            const iconContainer = document.getElementById("weather-icon");
+            if (!iconContainer) return;
+
+            if (desc.includes("sun") || desc.includes("clear")) {
+                iconContainer.innerHTML = '<i class="fas fa-sun"></i>';
+            } else if (desc.includes("rain") || desc.includes("drizzle")) {
+                iconContainer.innerHTML = '<i class="fas fa-cloud-rain"></i>';
+            } else if (desc.includes("snow")) {
+                iconContainer.innerHTML = '<i class="fas fa-snowflake"></i>';
+            } else if (desc.includes("storm") || desc.includes("thunder")) {
+                iconContainer.innerHTML = '<i class="fas fa-bolt"></i>';
+            } else if (desc.includes("haze") || desc.includes("mist") || desc.includes("fog") || desc.includes("smoke")) {
+                iconContainer.innerHTML = '<i class="fas fa-smog"></i>';
+            } else if (desc.includes("cloud")) {
+                iconContainer.innerHTML =
+                    '<span class="cloud-stack">' +
+                    '<i class="fas fa-cloud cloud cloud-a"></i>' +
+                    '<i class="fas fa-cloud cloud cloud-b"></i>' +
+                    '<i class="fas fa-cloud cloud cloud-c"></i>' +
+                    '</span>';
+            }
+            else {
+                iconContainer.innerHTML = '<i class="fas fa-cloud-sun"></i>';
+            }
+        }
+
+        // Apply theme class on <body> based on description
+        function applyConditionTheme() {
+            const desc = (document.querySelector(".weather-desc")?.textContent || "").trim().toLowerCase();
+            const body = document.body;
+
+            body.classList.remove("cond-clear", "cond-clouds", "cond-rain", "cond-storm", "cond-snow", "cond-haze");
+
+            let cond = "clouds";
+            if (desc.includes("clear") || desc.includes("sun")) cond = "clear";
+            else if (desc.includes("rain") || desc.includes("drizzle")) cond = "rain";
+            else if (desc.includes("storm") || desc.includes("thunder")) cond = "storm";
+            else if (desc.includes("snow")) cond = "snow";
+            else if (desc.includes("haze") || desc.includes("mist") || desc.includes("fog") || desc.includes("smoke")) cond = "haze";
+            else if (desc.includes("cloud")) cond = "clouds";
+
+            body.classList.add("cond-" + cond);
+        }
+
+        // Hover effects (optional)
+        function bindCardHover() {
+            const cards = document.querySelectorAll(".metric-card");
+            cards.forEach((card) => {
+                card.addEventListener("mouseenter", () => (card.style.transform = "translateY(-8px)"));
+                card.addEventListener("mouseleave", () => (card.style.transform = "translateY(0)"));
+            });
+        }
+
+        // ✅ Run immediately (no DevTools, no DOMContentLoaded needed)
+        updateTimestamp();
+        updateWeatherIcon();
+        applyConditionTheme();
+        bindCardHover();
+    </script>
+
+</body>
+
+</html>
