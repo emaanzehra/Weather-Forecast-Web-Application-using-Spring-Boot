@@ -30,8 +30,8 @@ Follow the steps below to run and reproduce the project locally.
 ### Step 1: Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <project-folder>
+git clone git@github.com:emaanzehra/Weather-Forecast-Web-Application-using-Spring-Boot.git
+cd Weather-Forecast-Web-Application-using-Spring-Boot
 ````
 
 ### Step 2: Configure the API Key
